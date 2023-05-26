@@ -13,6 +13,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
   private getExceptionMessage(exception: unknown): string {
     if (typeof exception === 'string') return exception;
+    if (exception instanceof Error) return exception.message;
     if (exception instanceof HttpException) return exception.message;
     return 'Something went wrong';
   }
