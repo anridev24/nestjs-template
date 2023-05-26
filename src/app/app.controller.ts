@@ -5,7 +5,7 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('health')
+  @Get()
   health(): string {
     return this.appService.health();
   }
