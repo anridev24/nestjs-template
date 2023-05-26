@@ -1,3 +1,4 @@
+import { APIResponse } from '@/utils';
 import { AppService } from './app.service';
 import { Controller, Get } from '@nestjs/common';
 
@@ -6,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('health')
-  health(): string {
-    return this.appService.health();
+  health() {
+    return new APIResponse('Healthy!', 200);
   }
 }
