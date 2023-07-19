@@ -8,6 +8,6 @@ export class AppController {
 
   @Get('health')
   health() {
-    return new APIResponse('Healthy!', 200);
+    return new APIResponse('Healthy!', undefined, 200);
   }
 }

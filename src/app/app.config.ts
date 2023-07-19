@@ -12,7 +12,6 @@ export class AppConfig {
   public static getInitConfig(): ConfigModuleOptions {
     const validNodeEnvList = Object.keys(NodeEnv).map((key) => NodeEnv[key]);
     const validLogLevelList = Object.keys(LogLevel).map((key) => LogLevel[key]);
-
     const envPath =
       process.env.NODE_ENV === NodeEnv.DEVELOPMENT
         ? '.env.development'

@@ -1,7 +1,9 @@
 export enum LogLevel {
-  COMBINED = 'combined',
-  COMMON = 'common',
-  DEV = 'dev',
-  SHORT = 'short',
-  TINY = 'tiny',
+  SILENT = 'silent',
+  TRACE = 'trace',
+  DEBUG = 'debug',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error',
+  FATAL = 'fatal',
 }

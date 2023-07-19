@@ -1,14 +1,10 @@
-import { ErrorResponse, SuccessResponse } from '@/types';
-
-export class APIResponse {
-  constructor(message: string, status: number, data?: object, error?: object) {
-    const response: SuccessResponse | ErrorResponse = {
-      statusCode: status || 200,
+export class APIResponse<T> {
+  constructor(message: string, data?: T, status?: number, error?: any) {
+    return {
       message: message || '',
-      timestamp: new Date().toISOString(),
       data: data || undefined,
+      status: status || 200,
       error: error || undefined,
     };
-    return response;
   }
 }

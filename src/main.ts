@@ -1,10 +1,10 @@
-import { AllExceptionsFilter, useRequestLogging } from './common';
 import { AppConfig } from '@app/app.config';
 import { AppModule } from '@app/app.module';
 import { ConfigService } from '@nestjs/config';
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { ResponseInterceptor, useRequestLogging } from './common';
 import { clusterize } from './utils';
 import helmet from 'helmet';
 
@@ -17,23 +17,23 @@ const bootstrap = async () => {
   );
 
   const configService = app.get(ConfigService);
-  const httpAdapter = app.get(HttpAdapterHost);
 
   const BASE_PATH = configService.get('BASE_PATH');
   const NODE_ENV = configService.get('NODE_ENV');
-  const LOG_LEVEL = configService.get('LOG_LEVEL');
+  const HOST = NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
 
   app.enableVersioning();
   app.enableCors();
   app.use(helmet());
-  useRequestLogging(app, LOG_LEVEL);
+
+  useRequestLogging(app);
 
   app.setGlobalPrefix(BASE_PATH);
 
+  app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
-  await app.listen(PORT, () => {
+  await app.listen(PORT, HOST, () => {
     Logger.log(`Listening at Port ${PORT}`, bootstrap.name);
   });
 };
