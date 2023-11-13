@@ -8,7 +8,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Response } from '@/types/response';
+import { Response } from '@/types/utils';
 import { map } from 'rxjs/operators';
 
 @Injectable()

@@ -32,6 +32,8 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'no-promise-executor-return': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     // NestJS default rules
     '@typescript-eslint/interface-name-prefix': 'off',
     // NestJS default rules

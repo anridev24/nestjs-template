@@ -1,6 +1,6 @@
 import { ConfigModuleOptions } from '@nestjs/config';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
-import { LogLevel, NodeEnv } from '@/types';
+import { LogLevel, NodeEnv } from '@/types/utils';
 
 import Joi from 'joi';
 

@@ -8,7 +8,7 @@ import { ResponseInterceptor, useRequestLogging } from './common';
 import { clusterize } from './utils';
 import helmet from 'helmet';
 
-const { CLUSTERING, PORT } = process.env;
+const { CLUSTERING } = process.env;
 
 const bootstrap = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -20,6 +20,8 @@ const bootstrap = async () => {
 
   const BASE_PATH = configService.get('BASE_PATH');
   const NODE_ENV = configService.get('NODE_ENV');
+  const PORT = configService.get('PORT');
+
   const HOST = NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
 
   app.enableVersioning();

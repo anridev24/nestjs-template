@@ -27,7 +27,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictBindCallApply": false,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "target": "es2017"
   }
 }
