@@ -1,27 +1,24 @@
 import { AppService } from './app.service';
-import {
-  Controller,
-  Get,
-  InternalServerErrorException,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ErrorResponse, SuccessResponse } from '@/utils';
+import { UnhandledResponse } from '@/utils/unhandled-response';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('health/:returnError')
-  async health(@Param() param: { returnError: string }) {
+  @Get('test/:returnError')
+  async test(@Param() param: { returnError: string }) {
     try {
-      await this.appService.example(
-        String(param.returnError).toLowerCase() === 'true'
-      );
+      const shouldThrow = String(param.returnError).toLowerCase() === 'true';
+
+      await this.appService.example(shouldThrow);
+
+      if (shouldThrow) throw new ErrorResponse(401, 'error test', { b: 1 });
 
       return new SuccessResponse('ok', { test: '1' });
     } catch (error: unknown) {
-      if (error instanceof ErrorResponse) return error;
-      throw new InternalServerErrorException(error);
+      return new UnhandledResponse(error);
     }
   }
 }
