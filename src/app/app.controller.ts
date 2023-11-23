@@ -1,13 +1,27 @@
-import { APIResponse } from '@/utils';
 import { AppService } from './app.service';
-import { Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Param,
+} from '@nestjs/common';
+import { ErrorResponse, SuccessResponse } from '@/utils';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('health')
-  health() {
-    return new APIResponse('Healthy!', undefined, 200);
+  @Get('health/:returnError')
+  async health(@Param() param: { returnError: string }) {
+    try {
+      await this.appService.example(
+        String(param.returnError).toLowerCase() === 'true'
+      );
+
+      return new SuccessResponse('ok', { test: '1' });
+    } catch (error: unknown) {
+      if (error instanceof ErrorResponse) return error;
+      throw new InternalServerErrorException(error);
+    }
   }
 }

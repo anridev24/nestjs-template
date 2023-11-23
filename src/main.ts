@@ -31,7 +31,6 @@ const bootstrap = async () => {
   useRequestLogging(app);
 
   app.setGlobalPrefix(BASE_PATH);
-
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 

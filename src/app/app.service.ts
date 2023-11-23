@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import { ErrorResponse } from '@/utils';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -8,7 +9,9 @@ export class AppService {
     private readonly appClient: AxiosInstance
   ) {}
 
-  async example() {
-    this.appClient.get('https://api.instagram.com/v1');
+  async example(returnError: boolean) {
+    // throw new BadRequestException('test');
+    if (returnError) throw new ErrorResponse(401, 'error test', { b: 1 });
+    return true;
   }
 }
