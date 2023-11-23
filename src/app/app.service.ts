@@ -1,5 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { ErrorResponse } from '@/utils';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -10,8 +9,11 @@ export class AppService {
   ) {}
 
   async example(returnError: boolean) {
+    // if (returnError) throw new ErrorResponse(401, 'error test', { b: 1 });
+    // throw new InternalServerErrorException('test');
     // throw new BadRequestException('test');
-    if (returnError) throw new ErrorResponse(401, 'error test', { b: 1 });
+    throw TypeError('im error');
+
     return true;
   }
 }
