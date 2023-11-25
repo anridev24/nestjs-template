@@ -1,5 +1,7 @@
 import { HttpException, InternalServerErrorException } from '@nestjs/common';
 
+// Was Replaced by all-exception.filter.ts
+// still here for reference
 export class UnhandledResponse {
   constructor(error: unknown) {
     if (error instanceof InternalServerErrorException)
@@ -9,8 +11,7 @@ export class UnhandledResponse {
 
     if (error instanceof Error)
       throw new InternalServerErrorException(error.message);
-    console.error('bug in code', error);
-    process.exit(1);
+
     throw error;
   }
 }

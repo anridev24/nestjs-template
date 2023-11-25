@@ -1,3 +1,4 @@
+import { AllExceptionFilter } from './common/filter';
 import { AppConfig } from '@app/app.config';
 import { AppModule } from '@app/app.module';
 import { ConfigService } from '@nestjs/config';
@@ -32,6 +33,7 @@ const bootstrap = async () => {
 
   app.setGlobalPrefix(BASE_PATH);
   app.useGlobalInterceptors(new ResponseInterceptor());
+  app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   await app.listen(PORT, HOST, () => {
